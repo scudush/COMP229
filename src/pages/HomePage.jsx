@@ -9,7 +9,6 @@ import Contact from './Contact';
 import Services from './Services';
 
 import resumeIcon from '../assets/resume-icon.png';
-import navbarIcon from '../assets/navbar-icon.png';
 import profilePhoto from '../assets/my-photo.jpg';
 
 function Home() {
@@ -47,7 +46,7 @@ function Home() {
       <Box className="sidebar">
         <Box className="sidebar-top">
           <a href="#home" className="sidebar-logo">
-            <img src={navbarIcon} alt="Logo" className="logo-img" />
+            <img src="/navbar-icon.png" alt="Logo" className="logo-img" />
           </a>
 
           <Box className="sidebar-nav">
