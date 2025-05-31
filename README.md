@@ -16,8 +16,8 @@ This is my personal portfolio built with React and styled with custom CSS and MU
 - Resume download button
 - Typing animation on homepage
 
-## 📡 Live Site
-➡️ [https://your-live-site.netlify.app](#) ← Replace this with your actual deployed URL
+## 📡 Live Demo
+👉 [https://scudush.github.io/COMP229/](https://scudush.github.io/COMP229/)
 
 ## 📁 Repository
 ➡️ [https://github.com/scudush/COMP229](https://github.com/scudush/COMP229)
