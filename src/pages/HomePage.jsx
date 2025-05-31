@@ -46,7 +46,7 @@ function Home() {
       <Box className="sidebar">
         <Box className="sidebar-top">
           <a href="#home" className="sidebar-logo">
-            <img src="/logo.png" alt="Logo" className="logo-img" />
+            <img src="/COMP229/logo.png" alt="Logo" className="logo-img" />
           </a>
 
           <Box className="sidebar-nav">
@@ -65,7 +65,7 @@ function Home() {
         {/* Resume Button */}
         <Box className="sidebar-footer">
           <a
-            href="/resume.pdf"
+            href="/COMP229/resume.pdf"
             download="Scud Gabriel Pineda-Resume.pdf"
             style={{ textDecoration: 'none' }}
           >
