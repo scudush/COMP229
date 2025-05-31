@@ -11,7 +11,6 @@ import Services from './Services';
 import resumeIcon from '../assets/resume-icon.png';
 import navbarIcon from '../assets/navbar-icon.png';
 import profilePhoto from '../assets/my-photo.jpg';
-import resumePDF from '../assets/ScudGabrielPineda-Resume.pdf';
 
 function Home() {
   const [activeSection, setActiveSection] = useState('home');
@@ -64,10 +63,10 @@ function Home() {
           </Box>
         </Box>
 
-        {/* Resume Button (styled + download) */}
+        {/* Resume Button */}
         <Box className="sidebar-footer">
           <a
-            href={resumePDF}
+            href="/ScudGabrielPineda-Resume.pdf"
             download="ScudGabrielPineda-Resume.pdf"
             style={{ textDecoration: 'none' }}
           >
@@ -90,7 +89,6 @@ function Home() {
 
       {/* Main Content */}
       <Box className="home-container">
-        {/* Home Section */}
         <div id="home" className="section home-intro">
           <div
             className="intro-content"
@@ -102,7 +100,6 @@ function Home() {
               flexWrap: 'wrap',
             }}
           >
-            {/* Text Column */}
             <div style={{ flex: 1, minWidth: '280px' }}>
               <h1 className="intro-heading">Welcome to My Portfolio</h1>
               <h2 className="intro-subheading">Scud Gabriel Pineda</h2>
@@ -158,7 +155,6 @@ function Home() {
           </div>
         </div>
 
-        {/* Other Sections */}
         <Projects />
         <About />
         <Contact />
