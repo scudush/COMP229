@@ -13,6 +13,9 @@ function App() {
       <Route path="/projects" element={<Projects />} />
       <Route path="/services" element={<Services />} />
       <Route path="/contact" element={<Contact />} />
+
+      {/* ✅ Catch-all fallback */}
+      <Route path="*" element={<Home />} />
     </Routes>
   );
 }
