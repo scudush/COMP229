@@ -65,7 +65,7 @@ function Home() {
         {/* Resume Button */}
         <Box className="sidebar-footer">
           <a
-            href="/ScudGabrielPineda-Resume.pdf"
+            href="/SCUD GABRIEL PINEDA - Resume.pdf"
             download="ScudGabrielPineda-Resume.pdf"
             style={{ textDecoration: 'none' }}
           >
