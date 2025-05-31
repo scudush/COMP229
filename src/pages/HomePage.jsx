@@ -8,6 +8,11 @@ import About from './About';
 import Contact from './Contact';
 import Services from './Services';
 
+import resumeIcon from '../assets/resume-icon.png';
+import navbarIcon from '../assets/navbar-icon.png';
+import profilePhoto from '../assets/my-photo.jpg';
+import resumePDF from '../assets/ScudGabrielPineda-Resume.pdf';
+
 function Home() {
   const [activeSection, setActiveSection] = useState('home');
 
@@ -43,7 +48,7 @@ function Home() {
       <Box className="sidebar">
         <Box className="sidebar-top">
           <a href="#home" className="sidebar-logo">
-            <img src="/src/assets/navbar-icon.png" alt="Logo" className="logo-img" />
+            <img src={navbarIcon} alt="Logo" className="logo-img" />
           </a>
 
           <Box className="sidebar-nav">
@@ -62,7 +67,7 @@ function Home() {
         {/* Resume Button (styled + download) */}
         <Box className="sidebar-footer">
           <a
-            href="/src/assets/ScudGabrielPineda-Resume.pdf"
+            href={resumePDF}
             download="ScudGabrielPineda-Resume.pdf"
             style={{ textDecoration: 'none' }}
           >
@@ -71,7 +76,7 @@ function Home() {
               className="resume-link"
               startIcon={
                 <img
-                  src="/src/assets/resume-icon.png"
+                  src={resumeIcon}
                   alt="Resume"
                   style={{ height: 20, width: 20 }}
                 />
@@ -139,7 +144,7 @@ function Home() {
             {/* Profile Image */}
             <div style={{ flexShrink: 0 }}>
               <img
-                src="/src/assets/my-photo.jpg"
+                src={profilePhoto}
                 alt="Scud Gabriel Pineda"
                 style={{
                   width: '220px',
