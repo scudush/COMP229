@@ -1,4 +1,5 @@
-import profilePic from '../assets/my-photo.jpg';
+import myPhoto from '../assets/my-photo.jpg';
+
 
 function About() {
   return (
@@ -14,7 +15,7 @@ function About() {
         to contribute to impactful projects. Beyond coding, I value continuous learning, teamwork, and using technology as a tool for positive change.
       </p>
       <img
-        src={profilePic}
+        src={myPhoto}
         alt="Scud Gabriel Pineda"
         width="200"
         style={{ borderRadius: '12px', boxShadow: '0 4px 10px rgba(0,0,0,0.1)' }}
