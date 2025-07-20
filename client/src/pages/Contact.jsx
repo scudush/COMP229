@@ -30,7 +30,7 @@ function Contact() {
         const data = await res.json();
         setStatus(`❌ ${data.error || 'Something went wrong'}`);
       }
-    } catch (err) {
+    } catch {
       setStatus('❌ Network error. Please try again later.');
     }
   };
