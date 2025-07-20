@@ -1,26 +1,14 @@
+import { useEffect, useState } from 'react';
+
 function Services() {
-  const services = [
-    {
-      title: 'Web Application Development',
-      description:
-        'Building fast, responsive, and scalable web applications using React, Node.js, and modern development tools.',
-    },
-    {
-      title: 'Database Design & Optimization',
-      description:
-        'Designing efficient database schemas and writing optimized SQL queries to support application performance.',
-    },
-    {
-      title: 'Quality Assurance & Testing',
-      description:
-        'Creating test cases, conducting manual testing, and ensuring functionality through bug tracking and validation.',
-    },
-    {
-      title: 'UI/UX Prototyping',
-      description:
-        'Designing clean and functional interfaces using wireframes, mockups, and modern design principles.',
-    },
-  ];
+  const [services, setServices] = useState([]);
+
+  useEffect(() => {
+    fetch('https://portfolio-backend-hspu.onrender.com/api/qualifications')
+      .then((res) => res.json())
+      .then((data) => setServices(data))
+      .catch((err) => console.error('Failed to fetch services:', err));
+  }, []);
 
   return (
     <div id="services" className="section" style={{ textAlign: 'center' }}>

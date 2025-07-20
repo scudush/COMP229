@@ -1,81 +1,125 @@
-function Contact() {
-  return (
-    <div id="contact" className="section" style={{ textAlign: 'center' }}>
-      <h1 style={{ fontSize: '2.5rem', color: '#1c1c1c', marginBottom: '1rem' }}>Contact Me</h1>
-      <p style={{ marginBottom: '2rem', color: '#555' }}>
-        Got a question, idea, or opportunity? Feel free to reach out!
-      </p>
+import { useState } from 'react';
 
-      <form
-        style={{
-          maxWidth: '500px',
-          margin: '0 auto',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '1rem',
-        }}
-        onSubmit={(e) => {
-          e.preventDefault();
-          alert('Message sent!');
-        }}
-      >
-        <input
-          type="text"
-          placeholder="First Name"
-          required
-          style={inputStyle}
-        />
-        <input
-          type="text"
-          placeholder="Last Name"
-          required
-          style={inputStyle}
-        />
-        <input
-          type="tel"
-          placeholder="Contact Number"
-          required
-          style={inputStyle}
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          required
-          style={inputStyle}
-        />
-        <textarea
-          placeholder="Your Message"
-          required
-          rows={5}
-          style={{ ...inputStyle, resize: 'vertical' }}
-        />
-        <button type="submit" style={buttonStyle}>
-          Send Message
-        </button>
-      </form>
+function Contact() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: '',
+  });
+  const [status, setStatus] = useState('');
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus('Sending...');
+
+    try {
+      const res = await fetch('https://portfolio-backend-hspu.onrender.com/api/contacts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      if (res.ok) {
+        setStatus('✅ Message sent successfully!');
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        const data = await res.json();
+        setStatus(`❌ ${data.error || 'Something went wrong'}`);
+      }
+    } catch (err) {
+      setStatus('❌ Network error. Please try again later.');
+    }
+  };
+
+  return (
+    <div id="contact" className="section" style={{ padding: '4rem 1rem', textAlign: 'center' }}>
+      <div style={{ maxWidth: '600px', margin: '0 auto', borderRadius: '16px', padding: '2rem', boxShadow: '0 4px 12px rgba(0,0,0,0.06)' }}>
+        <h2 style={{ fontSize: '2rem', marginBottom: '1rem', color: '#1c1c1c' }}>Contact Me</h2>
+        <p style={{ marginBottom: '2rem', color: '#666' }}>
+          Let’s get in touch! Feel free to send me a message.
+        </p>
+
+        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+          <input
+            type="text"
+            name="name"
+            placeholder="Your Name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+            style={{
+              padding: '0.85rem 1rem',
+              borderRadius: '10px',
+              border: '1px solid #ccc',
+              fontSize: '1rem',
+              outline: 'none',
+            }}
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder="Your Email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+            style={{
+              padding: '0.85rem 1rem',
+              borderRadius: '10px',
+              border: '1px solid #ccc',
+              fontSize: '1rem',
+              outline: 'none',
+            }}
+          />
+          <textarea
+            name="message"
+            placeholder="Your Message"
+            value={formData.message}
+            onChange={handleChange}
+            required
+            rows="5"
+            style={{
+              padding: '0.85rem 1rem',
+              borderRadius: '10px',
+              border: '1px solid #ccc',
+              fontSize: '1rem',
+              resize: 'vertical',
+              outline: 'none',
+            }}
+          />
+          <button
+            type="submit"
+            style={{
+              backgroundColor: '#646cff',
+              color: '#fff',
+              fontWeight: 'bold',
+              padding: '0.85rem',
+              borderRadius: '10px',
+              border: 'none',
+              cursor: 'pointer',
+              transition: 'background 0.3s',
+            }}
+          >
+            Send Message
+          </button>
+          {status && (
+            <p
+              style={{
+                marginTop: '0.5rem',
+                textAlign: 'center',
+                color: status.startsWith('✅') ? 'green' : 'red',
+              }}
+            >
+              {status}
+            </p>
+          )}
+        </form>
+      </div>
     </div>
   );
 }
-
-const inputStyle = {
-  padding: '0.8rem',
-  borderRadius: '8px',
-  border: '1px solid #ccc',
-  fontSize: '1rem',
-  fontFamily: 'inherit',
-  outlineColor: 'coral',
-};
-
-const buttonStyle = {
-  backgroundColor: 'coral',
-  color: 'white',
-  fontWeight: '600',
-  padding: '0.75rem',
-  border: 'none',
-  borderRadius: '8px',
-  cursor: 'pointer',
-  fontSize: '1rem',
-  transition: 'background 0.3s ease',
-};
 
 export default Contact;
