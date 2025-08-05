@@ -8,7 +8,12 @@ const PORT = process.env.PORT || 5000;
 
 // ✅ CORS configuration to allow GitHub Pages frontend
 app.use(cors({
-  origin: 'https://scudush.github.io',
+  origin: [
+    'http://localhost:5173',           // Vite dev server
+    'http://localhost:3000',           // React default
+    'https://scudush.github.io',       // GitHub Pages
+  ],
+  credentials: true,                   // Allow cookies/token headers if needed
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
 }));
 

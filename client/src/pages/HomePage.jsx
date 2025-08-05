@@ -208,28 +208,37 @@ function Home() {
           </Box>
         </Box>
 
-        {/* Resume Button (UNTOUCHED) */}
-        <Box className="sidebar-footer">
-          <a
-            href="/COMP229/resume.pdf"
-            download="Scud Gabriel Pineda-Resume.pdf"
-            style={{ textDecoration: 'none' }}
+        {/* Remove Resume Button from Sidebar Footer! */}
+      </Box>
+
+      {/* Floating Resume Button on right */}
+      <Box
+        sx={{
+          position: "fixed",
+          right: 32,
+          bottom: 32,
+          zIndex: 100,
+        }}
+      >
+        <a
+          href="/COMP229/resume.pdf"
+          download="Scud Gabriel Pineda-Resume.pdf"
+          style={{ textDecoration: 'none' }}
+        >
+          <Button
+            variant="outlined"
+            className="resume-link"
+            startIcon={
+              <img
+                src={resumeIcon}
+                alt="Resume"
+                style={{ height: 20, width: 20 }}
+              />
+            }
           >
-            <Button
-              variant="outlined"
-              className="resume-link"
-              startIcon={
-                <img
-                  src={resumeIcon}
-                  alt="Resume"
-                  style={{ height: 20, width: 20 }}
-                />
-              }
-            >
-              RESUME
-            </Button>
-          </a>
-        </Box>
+            RESUME
+          </Button>
+        </a>
       </Box>
 
       {/* Main Content */}
