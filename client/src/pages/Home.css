@@ -198,3 +198,130 @@
   clip-path: polygon(20% 0%, 100% 0%, 100% 100%, 40% 100%);
   filter: blur(20px);
 }
+
+.modal-overlay {
+  position: fixed;
+  z-index: 9999;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(30, 34, 69, 0.32); /* matches your sidebar overlay tint */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.15s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.modal-content {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 8px 40px rgba(40,48,135,0.15), 0 2px 8px rgba(0,0,0,0.07);
+  padding: 2.5rem 2rem 2rem 2rem;
+  max-width: 370px;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  align-items: stretch;
+  position: relative;
+}
+
+.modal-content h2 {
+  color: #646cff;
+  font-size: 1.65rem;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.01em;
+  text-align: center;
+}
+
+.modal-content input {
+  font-size: 1rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid #dedefe;
+  border-radius: 10px;
+  outline: none;
+  margin-bottom: 2px;
+  background: #fafbff;
+  transition: border-color 0.2s;
+}
+.modal-content input:focus {
+  border-color: #646cff;
+  background: #fff;
+}
+
+.modal-content button[type="submit"] {
+  background: linear-gradient(90deg,#646cff 75%,#858fff 100%);
+  color: #fff;
+  border: none;
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: 9px;
+  padding: 0.85rem 0;
+  margin-top: 0.4rem;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(100,108,255,0.08);
+}
+.modal-content button[type="submit"]:hover,
+.modal-content button[type="submit"]:focus {
+  background: linear-gradient(90deg,#525cdb 75%,#646cff 100%);
+}
+
+.modal-content button[type="button"] {
+  background: none;
+  color: #aaa;
+  border: none;
+  padding: 0.7rem 0 0.1rem 0;
+  font-size: 0.97rem;
+  cursor: pointer;
+  text-decoration: underline;
+  margin-top: 0.1rem;
+  margin-bottom: -0.6rem;
+  align-self: flex-end;
+  transition: color 0.15s;
+}
+.modal-content button[type="button"]:hover {
+  color: #646cff;
+  text-decoration: none;
+}
+
+.modal-content > div[style*="marginTop: 10px"] {
+  color: #d32f2f;
+  text-align: center;
+  font-size: 0.98rem;
+}
+
+.modal-content > div:last-child {
+  text-align: center;
+  font-size: 0.96rem;
+  color: #222;
+  margin-top: 0.7rem;
+}
+
+/* Style the link-style buttons in footer */
+.modal-content button[style*="background: none"] {
+  color: #646cff;
+  font-weight: 500;
+  text-decoration: underline;
+  background: none;
+  border: none;
+  font-size: 1em;
+  margin-left: 2px;
+  padding: 0;
+  cursor: pointer;
+  transition: color 0.17s;
+}
+.modal-content button[style*="background: none"]:hover {
+  color: #1b1b5c;
+}
+
+@media (max-width: 600px) {
+  .modal-content {
+    max-width: 95vw;
+    min-width: unset;
+    padding: 1.3rem 0.5rem 1.2rem 0.5rem;
+  }
+}

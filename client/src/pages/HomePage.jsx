@@ -11,8 +11,101 @@ import Services from './Services';
 import resumeIcon from '../assets/resume-icon.png';
 import profilePhoto from '../assets/my-photo.jpg';
 
+// --- LOGIN MODAL ---
+function LoginModal({ open, onClose, onSignupClick, onLoginSuccess }) {
+  const [form, setForm] = useState({ username: '', password: '' });
+  const [message, setMessage] = useState('');
+  if (!open) return null;
+  const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleSubmit = async e => {
+    e.preventDefault();
+    const res = await fetch('https://portfolio-backend-hspu.onrender.com/api/users/signin', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(form)
+    });
+    const data = await res.json();
+    if (data.token) {
+      localStorage.setItem('token', data.token);
+      setMessage('Login successful!');
+      setTimeout(() => {
+        setForm({ username: '', password: '' });
+        setMessage('');
+        onLoginSuccess && onLoginSuccess(form.username);
+        onClose();
+      }, 1000);
+    } else {
+      setMessage(data.error);
+    }
+  };
+  return (
+    <div className="modal-overlay">
+      <form className="modal-content" onSubmit={handleSubmit}>
+        <h2>Login</h2>
+        <input name="username" placeholder="Username" value={form.username} onChange={handleChange} required />
+        <input name="password" type="password" placeholder="Password" value={form.password} onChange={handleChange} required />
+        <button type="submit">Login</button>
+        <button type="button" onClick={onClose}>Close</button>
+        {message && <div style={{ marginTop: 10 }}>{message}</div>}
+        <div style={{ marginTop: 15 }}>
+          <span>Don't have an account? </span>
+          <button type="button" style={{ color: "#646cff", background: "none", border: "none", cursor: "pointer", padding: 0 }} onClick={onSignupClick}>
+            Create Account
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+}
+
+// --- SIGNUP MODAL ---
+function SignupModal({ open, onClose, onLoginClick }) {
+  const [form, setForm] = useState({ username: '', password: '' });
+  const [message, setMessage] = useState('');
+  if (!open) return null;
+  const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleSubmit = async e => {
+    e.preventDefault();
+    const res = await fetch('https://portfolio-backend-hspu.onrender.com/api/users', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(form)
+    });
+    const data = await res.json();
+    setMessage(data.message || data.error);
+    if (data.message === "User created") {
+      setTimeout(() => {
+        setForm({ username: '', password: '' });
+        setMessage('');
+        onLoginClick();
+      }, 1200);
+    }
+  };
+  return (
+    <div className="modal-overlay">
+      <form className="modal-content" onSubmit={handleSubmit}>
+        <h2>Sign Up</h2>
+        <input name="username" placeholder="Username" value={form.username} onChange={handleChange} required />
+        <input name="password" type="password" placeholder="Password" value={form.password} onChange={handleChange} required />
+        <button type="submit">Create Account</button>
+        <button type="button" onClick={onClose}>Close</button>
+        {message && <div style={{ marginTop: 10 }}>{message}</div>}
+        <div style={{ marginTop: 15 }}>
+          <span>Already have an account? </span>
+          <button type="button" style={{ color: "#646cff", background: "none", border: "none", cursor: "pointer", padding: 0 }} onClick={onLoginClick}>
+            Back to Login
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+}
+
 function Home() {
   const [activeSection, setActiveSection] = useState('home');
+  const [showLogin, setShowLogin] = useState(false);
+  const [showSignup, setShowSignup] = useState(false);
+  const [username, setUsername] = useState('');
 
   const handleScrollTo = (id) => {
     const el = document.getElementById(id);
@@ -60,9 +153,62 @@ function Home() {
               </span>
             ))}
           </Box>
+          <Box sx={{ mt: 2 }}>
+            {!username && (
+              <Button
+                variant="outlined"
+                sx={{
+                  width: "100%", mb: 1,
+                  borderRadius: "9px",
+                  color: "#646cff",
+                  borderColor: "#646cff",
+                  fontWeight: 700,
+                  fontSize: "1rem",
+                  letterSpacing: "0.01em",
+                  "&:hover": {
+                    background: "#646cff11",
+                    borderColor: "#525cdb",
+                    color: "#525cdb",
+                  }
+                }}
+                onClick={() => setShowLogin(true)}
+              >
+                Login
+              </Button>
+            )}
+            {username && (
+              <div style={{ textAlign: "center", marginTop: 10 }}>
+                Welcome, {username}
+                <Button
+                  variant="outlined"
+                  sx={{
+                    ml: 1,
+                    borderRadius: "9px",
+                    color: "#646cff",
+                    borderColor: "#646cff",
+                    fontWeight: 700,
+                    fontSize: "1rem",
+                    letterSpacing: "0.01em",
+                    minWidth: "90px",
+                    "&:hover": {
+                      background: "#ffe4e7",
+                      borderColor: "#d32f2f",
+                      color: "#d32f2f",
+                    }
+                  }}
+                  onClick={() => {
+                    localStorage.removeItem('token');
+                    setUsername('');
+                  }}
+                >
+                  Logout
+                </Button>
+              </div>
+            )}
+          </Box>
         </Box>
 
-        {/* Resume Button */}
+        {/* Resume Button (UNTOUCHED) */}
         <Box className="sidebar-footer">
           <a
             href="/COMP229/resume.pdf"
@@ -159,6 +305,19 @@ function Home() {
         <Contact />
         <Services />
       </Box>
+
+      {/* Modals */}
+      <LoginModal
+        open={showLogin}
+        onClose={() => setShowLogin(false)}
+        onSignupClick={() => { setShowLogin(false); setShowSignup(true); }}
+        onLoginSuccess={(name) => setUsername(name)}
+      />
+      <SignupModal
+        open={showSignup}
+        onClose={() => setShowSignup(false)}
+        onLoginClick={() => { setShowSignup(false); setShowLogin(true); }}
+      />
     </Box>
   );
 }

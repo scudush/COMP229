@@ -48,3 +48,8 @@ app.get('/api/protected', authMiddleware, (req, res) => {
 app.listen(PORT, () => {
   console.log(`🚀 Server is running on port ${PORT}`);
 });
+
+
+require('dotenv').config();
+console.log("CWD:", process.cwd());
+console.log("ENV loaded:", process.env.MONGODB_URI ? "YES" : "NO");
